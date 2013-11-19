@@ -29,7 +29,7 @@ main()
 		if (len > 1)		/* Skip blank line */
 		{
 			/* Remove trailing blanks */
-			for(i = curlen - 2; i >= 0 && line[i] == ' ' || line[i] == '\t'; --i)
+			for(i = curlen - 2; i >= 0 && (line[i] == ' ' || line[i] == '\t'); --i)
 				line[i] = '\0';
 			
 			if(i >= 0)		/* Skip blank line */
