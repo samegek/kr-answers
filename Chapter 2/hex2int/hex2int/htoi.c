@@ -21,7 +21,7 @@ int htoi(char s[])
 		curr = s[i];
 		if (isalpha(curr))
 		{
-			curr = tolower(curr) - 'a' + 0x10;
+			curr = tolower(curr) - 'a' + 10;
 		}
 		else if (isdigit(curr))
 		{

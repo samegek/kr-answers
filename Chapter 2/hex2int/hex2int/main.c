@@ -4,7 +4,7 @@
  * This is the solution to K&R C 2-3 */
 main()
 {
-	char ss1[] = "0x80";	/* hexadecimal literal with 0x */
+	char ss1[] = "0xa";	/* hexadecimal literal with 0x */
 	char ss2[] = "123456";		/* hexadecimal literal without 0x*/
 	int iss1 = htoi(ss1);
 	int iss2 = htoi(ss2);
