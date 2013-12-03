@@ -8,7 +8,7 @@
 main()
 {
 	char s1[] = "I never fuck cheated in my whole life.";	/* original sentence */
-	char s2[] = "fuck cheated in my whole life. YES";	/* word to be removed */
+	char s2[] = "fuck";	/* word to be removed */
 	
 	squeeze(s1, s2);
 	printf("%s", s1);
