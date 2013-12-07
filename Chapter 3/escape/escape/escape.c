@@ -1,4 +1,4 @@
-void escape(char s[], char t[])
+       void escape(char s[], char t[])
 {
 	int i, j;
 	for(i = 0, j = 0; (s[j] = t[i]) != '\0'; ++i, ++j)
