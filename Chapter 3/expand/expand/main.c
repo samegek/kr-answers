@@ -12,7 +12,7 @@ main()
 	char s2[MAXLEN];
 
 	expand(s1, s2);
-	printf("%s\n%s", s1, s2);
+	printf("%s\n%s\n", s1, s2);
 
 	return 0;
 }
@@ -22,7 +22,9 @@ main()
  * to store the expanded string */
 void expand(char s1[], char s2[])
 {
-	int i, j, k;
+	int i, j;
+	char k;
+
 	for (i = 0, j = 0; s1[i] != '\0'; ++i, ++j)
 	{
 		if ((isalpha(s1[i]) || isdigit(s1[i])) && s1[i + 1] == '-' && s1[i + 2] >= s1[i])
