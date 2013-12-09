@@ -97,7 +97,7 @@ main()
 				;
 			break;
 		case '=':
-			if(getop(s) != NUMBER){
+			if(getop(s) != VARS){
 				printf("error: assignment without a variable.\n");
 				break;
 			}
