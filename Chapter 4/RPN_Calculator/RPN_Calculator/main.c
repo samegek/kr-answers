@@ -26,9 +26,10 @@ void calcLibFun(char s[]);
 main()
 {
 	int type, i;
-	double op2, vars[26];
+	double op2, vars[26], ans;
 	char s[MAXOP];
-
+	
+	ans = 0;
 	for (i = 0; i < 26; ++i)
 		vars[i] = 0;
 
@@ -46,6 +47,9 @@ main()
 			break;
 		case VARS:
 			push(vars[s[0] - 'A']);
+			break;
+		case 'v':
+			push(ans);
 			break;
 		case '+':
 			push(pop() + pop());
@@ -100,7 +104,7 @@ main()
 			push(vars[s[0] - 'A'] = pop());
 			break;
 		case '\n':
-			printf("\t%.8g\n", pop());
+			printf("\t%.8g\n", ans = pop());
 			break;
 		case 'q':
 			printf("Bye!");
