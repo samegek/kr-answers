@@ -22,7 +22,7 @@ void ungetch(int);
 void calcLibFun(char s[]);
 
 /* RPN(Reverse Polish Calculator)
- * These files are the solutions to K&R C 4-3~4-10*/
+ * These files are the solutions to K&R C 4-3~4-9*/
 main()
 {
 	int type, i;
@@ -45,7 +45,7 @@ main()
 			calcLibFun(s);
 			break;
 		case VARS:
-			
+			push(vars[s[0] - 'A']);
 			break;
 		case '+':
 			push(pop() + pop());
@@ -93,16 +93,21 @@ main()
 				;
 			break;
 		case '=':
-			op2 = pop();
-			vars[char(pop()) - 'a'] = op2;
+			if(getop(s) != NUMBER){
+				printf("error: assignment without a variable.\n");
+				break;
+			}
+			push(vars[s[0] - 'A'] = pop());
 			break;
 		case '\n':
 			printf("\t%.8g\n", pop());
 			break;
 		case 'q':
-			printf("Bye!\n");
+			printf("Bye!");
 			return 0;
 		default:
+			while (getch() != '\n')
+				;
 			printf("error: unknown command %s\n", s);
 			break;
 		}
@@ -256,16 +261,27 @@ int getop(char s[])
 
 char buf[BUFSIZE];
 int bufp = 0;
-
+/* getch: get one char from the buffer, if not use getchar[] */
 int getch(void)
 {
 	return (bufp > 0) ? buf[--bufp] : getchar();
+	//return (bufp > 0) ? buf[0] : getchar();	/* solution to the 4-8 */
 }
-
+/*ungetch: return one char into the buffer */
 void ungetch(int c)
 {
 	if (bufp >= BUFSIZE)
 		printf("ungetch: too many characters\n");
 	else
 		buf[bufp++] = c;
+		//buf[0] = c;							/* solutions to the 4-8 */
+}
+/* ungets: return the s strings into the buffer */
+void ungets(char s[])
+{
+	int i;
+	for (i = 0; s[i] != '\0'; ++i)
+	{
+		ungetch(s[i]);
+	}
 }
