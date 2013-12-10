@@ -69,6 +69,7 @@ void push(double f)
 
 /* pop: pop and return the top value of the stack */
 double pop(void)
+
 {
 	if (sp > 0)
 		return val[--sp];
@@ -79,16 +80,25 @@ double pop(void)
 }
 
 #include <ctype.h>
+#include <string.h>
+
 #define MAXLINE 1000
 
+char line[MAXLINE];
+int lp = 0;
 int getline(char s[], int lim);
+
 /* getop: get next operator or numeric operand */
 int getop(char s[])
 {
 	int i, c;
-	char line[MAXLINE];
 
-	while ((s[0] = c = getch()) == ' ' || c == '\t')
+	if (strlen(line) == lp)
+		if (getline(line, MAXLINE) == 0)
+			return EOF;
+		else
+			lp = 0;
+	while ((s[0] = c = line[lp++]) == ' ' || c == '\t')
 		;
 	s[1] = '\0';
 
@@ -97,16 +107,15 @@ int getop(char s[])
 
 	i = 0;
 	if (isdigit(c))
-		while (isdigit(s[++i] = c = getch()))
+		while (isdigit(s[++i] = c = line[lp++]))
 			;
 	if (c == '.')
-		while (isdigit(s[++i] = c = getch()))
+		while (isdigit(s[++i] = c = line[lp++]))
 			;
 	s[i] = '\0';
 	
-	if (c != EOF)
-		ungetch(c);
-	
+	--lp;
+
 	return NUMBER;
 }
 
