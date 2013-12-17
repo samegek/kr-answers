@@ -60,6 +60,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="getch.c" />
     <ClCompile Include="getnum.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
