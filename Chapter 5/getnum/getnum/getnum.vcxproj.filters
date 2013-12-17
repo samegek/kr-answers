@@ -21,6 +21,9 @@
     <ClCompile Include="getnum.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="getch.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="getnum.h">
