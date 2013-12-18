@@ -13,14 +13,14 @@ int strncmp(char *s, char *t, int n);
 main()
 {
 	char s[MAXLEN] = "hello, world";
-	char t[MAXLEN] = "ABCD";
+	char t[MAXLEN] = "hello.";
 
 	//printf("%d\n", strend(s, t));
 	//strcat(s, " i am the trailing sentence.\n");
 	//printf("%s", s);
-	strncpy(s, t, 5);
-
-	strncat(s, t, 10);
+	//strncpy(s, t, 5);
+	//strncat(s, t, 10);
+	printf("%d", strncmp(s, t, 5));
 
 	return 0;
 }
@@ -94,4 +94,21 @@ void strncat(char *s, char *t, int n)
 		;
 	if (*(s - 1) != '\0')
 		*s = '\0';
+}
+/* strncmp: compare by at most the first n characters of s and t */
+int strncmp(char *s, char *t, int n)
+{
+	while (n && *s == *t){	/* find the first unmatched character */
+		if (*s == '\0')
+			return 0;
+		n--;
+		s++;
+		t++;
+	}
+
+	if (n == 0)
+		return *(s - 1) - *(t - 1);
+	else
+		return *s - *t;
+
 }
