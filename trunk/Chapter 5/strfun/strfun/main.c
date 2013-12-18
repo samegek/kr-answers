@@ -18,7 +18,7 @@ main()
 	//printf("%d\n", strend(s, t));
 	//strcat(s, " i am the trailing sentence.\n");
 	//printf("%s", s);
-	//strncpy(s, t, 10);
+	strncpy(s, t, 5);
 
 	strncat(s, t, 10);
 
@@ -71,16 +71,27 @@ int strend(char *s, char *t)
  * pad '\0's if t has not enough characters. */
 void strncpy(char *s, char *t, int n)
 {
-	int i;
+	if (n <= 0)
+		return;
+
 	while (n-- && (*s++ = *t++) != '\0')
 		;
-	while (n--)
-		*s++ = '\0';
+	if (n > 0)
+		while (n--)
+			*s++ = '\0';
 }
 
 /* strncat: concatenate at most the first n chars of t into s,
  * terminate s with '\0'. */
-void strncat(char *s, char *t)
+void strncat(char *s, char *t, int n)
 {
+	if (n <= 0)
+		return;
 
+	while(*s != '\0')
+		s++;
+	while(n-- && (*s++ = *t++) != '\0')
+		;
+	if (*(s - 1) != '\0')
+		*s = '\0';
 }
