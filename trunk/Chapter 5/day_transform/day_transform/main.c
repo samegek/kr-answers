@@ -8,7 +8,7 @@ static char day_tab[2][13] = {
 int day_of_year(int year, int month, int day);
 void month_day(int year, int yearday, int *pmonth, int *pday);
 
-/* This is the solution to K&R C 5-8 */
+/* This is the solution to K&R C 5-8 and 5-9 */
 main(){
 	int month, day, yearday, year;
 
