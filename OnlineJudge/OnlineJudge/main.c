@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include <string.h>
 
 #define max(a, b) ((a >= b) ? a : b)
@@ -10,20 +11,27 @@ int ans[MAXN + MAXN];
 
 void sethp(int *, int);
 void hpmul(int *, int *, int *);
-void hpprint(int *);
+void hpprint(int *, int);
 
 /* high precision multiplication: the solution to PID 4121. */
 int main()
 {
-	int R;
-	int n;
-	while (scanf("%d%d", &R, &n)== 2){
+	double R;
+	int n, scale;
+	while (scanf("%6lf%d", &R, &n)== 2){
+		R *= 100000.0;
+		R = floor(R + 0.5);
+		scale = 5 * n;
 
-		sethp(op1, R);
+		sethp(op1, 1);
+		sethp(op2, R);
+		while(n--){
+			memset(ans, 0, sizeof(ans));		/* set the ans into 0*/
+			hpmul(op1, op2, ans);
+			memcpy(op1, ans, (*ans + 1)*sizeof(int));
 
-		memset(ans, 0, sizeof(ans));		/* set the ans into 0*/
-		hpmul(op1, op2, ans);dx
-		hpprint(ans);
+		}
+		hpprint(op1, scale);
 	}
 
 	return 0;
@@ -65,12 +73,32 @@ void hpmul(int *op1, int *op2, int *ans)
 	else
 		*ans = 1;
 }
-
-void hpprint(int *hpv)
+/* hpprint: print high precision values, point specifies the 
+ * position that divide the fraction part and the integer part */
+void hpprint(int *hpv, int point)
 {
-	int i; 
-	for (i = *hpv; i > 0; i--)
-		putchar(*(hpv + i) + '0');
+	int i, j; 
+	if (point <= *hpv){
+		for (i = *hpv; i > point; i--)
+			putchar(*(hpv + i) + '0');
+		putchar('.');
+		j = 1;
+		while (j <= point && *(hpv + j) == 0)
+			j++;
+		for(; i >= j; i--)
+			putchar(*(hpv + i) + '0');
+	}
+	else{
+		putchar('.');
+		j = 1;
+		while (*(hpv + j) == 0)
+			j++;
+		i = point - *hpv;
+		while(i--)
+			putchar('0');
+		for (i = *hpv; i >= j; i--)
+			putchar(*(hpv + i) + '0');
+	}
 
 	putchar('\n');
 }
