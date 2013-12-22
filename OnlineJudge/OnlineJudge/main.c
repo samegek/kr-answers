@@ -81,10 +81,11 @@ void hpprint(int *hpv, int point)
 	if (point <= *hpv){
 		for (i = *hpv; i > point; i--)
 			putchar(*(hpv + i) + '0');
-		putchar('.');
 		j = 1;
 		while (j <= point && *(hpv + j) == 0)
-			j++;
+			j++;	
+		if (i >= j)
+			putchar('.');
 		for(; i >= j; i--)
 			putchar(*(hpv + i) + '0');
 	}
