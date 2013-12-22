@@ -19,7 +19,7 @@ int main()
 	int n;
 	while (scanf("%d%d", &R, &n)== 2){
 
-
+		sethp(op1, R);
 
 		memset(ans, 0, sizeof(ans));		/* set the ans into 0*/
 		hpmul(op1, op2, ans);dx
@@ -29,9 +29,15 @@ int main()
 	return 0;
 }
 
+/* sethp: convert num into high precision representation */
 void sethp(int *hp, int num)
 {
+	int count = 0;
+	do{
+		*(hp + ++count) = num % 10;
+	} while (num /= 10);
 
+	*hp = count;
 }
 
 /* hpmul: multiple to hp(high precision) represented number */
