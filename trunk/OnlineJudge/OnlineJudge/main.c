@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define MAXARMY 1000000
-#define MAXDOCT 1000
+#define MAXARMY 1000010
+#define MAXDOCT 1010
 
 int army[MAXARMY];
 int doctors[MAXDOCT];
@@ -19,13 +20,15 @@ int main()
 	int N, M, P;
 	int i;
 	int minDoct, maxDoct;
-
+	double result;
 	scanf("%d", &K);
 	while (--K >= 0){
 		scanf("%d%d%d", &N, &M, &P);
 		for (i = 0; i < N; i++){
 			scanf("%d", &army[i]);
 		}
+		memset(doctors, 0, sizeof(int) * MAXDOCT);
+
 		qsort(army, N, sizeof(int), cmp);
 		for (i = N-1; i >= 0; i--){
 			doctors[0] += army[i];
@@ -39,9 +42,10 @@ int main()
 				maxDoct = i;
 			}
 		}
-
-	printf("%.3f\n", doctors[maxDoct] / (double)P);
+		result = doctors[maxDoct] / (double)P;
+		printf("%.3f\n", result);
 	}
+
 	return 0;
 }
 
