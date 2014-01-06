@@ -1,23 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #define MAXARMY 1000000
 #define MAXDOCT 1000
-#define max(a,b) ((a>=b)?(a):(b))
 
 int army[MAXARMY];
 int doctors[MAXDOCT];
 
 int cmp(const void *, const void *);
 
+void MinHeapFixdown(int heap[], int i, int n);
+
 /* solution to the BNU OJ 1020 
  * ATTENTION: the current solution may be over the time limit */
 int main()
 {
-	int K; /* num of data groups */
+	int K; /* number of data groups */
 	int N, M, P;
-	int i, j;
+	int i;
 	int minDoct, maxDoct;
 
 	scanf("%d", &K);
@@ -28,31 +28,48 @@ int main()
 		}
 		qsort(army, N, sizeof(int), cmp);
 		for (i = N-1; i >= 0; i--){
-			/* get number of the accessible doctor 
-			 * be careful with the seatch algorithm! */
-			minDoct = 0;
-			for (j = 1; j < M; j++){
-				if (doctors[j] < doctors[minDoct]){
-					minDoct = j;
-				}
-			}
-			doctors[minDoct] += army[i];
+			doctors[0] += army[i];
+			MinHeapFixdown(doctors, 0, M);
 		}
 
-		maxDoct = 0;
-		for (j = 1; j < M; j++){
-			if (doctors[j] > doctors[maxDoct]){
-				maxDoct = j;
+		/* find the doctor who works the longest time*/
+		maxDoct = M - 1;
+		for (i = M - 1; i >= 0; i--){
+			if (doctors[i] > doctors[maxDoct]){
+				maxDoct = i;
 			}
 		}
 
-	printf("%.3f", doctors[maxDoct] / (double)P);
+	printf("%.3f\n", doctors[maxDoct] / (double)P);
 	}
 	return 0;
 }
 
-/* cmp: cmpare function used by qsort */
+/* cmp: compare function used by qsort */
 int cmp(const void *n1, const void *n2)
 {
 	return *(int*)n1 - *(int*)n2;
+}
+
+/* MinHeapFixdown: fix the heap from top */
+void MinHeapFixdown(int heap[], int i, int n)
+{
+	int temp = heap[i];
+	int minchild = 2 * i + 1;
+
+	while (minchild < n)
+	{
+		if (minchild + 1 < n && heap[minchild + 1] < heap[minchild])
+			minchild += 1;
+
+		if (temp <= heap[minchild])
+			break;
+
+		heap[i] = heap[minchild];
+
+		i = minchild;
+		minchild = 2 * i + 1;
+	}
+
+	heap[i] = temp;
 }
