@@ -6,9 +6,11 @@ int josephus(int n, int m);
 int main()
 {
 	int n, m;
+	int last;
 
 	scanf("%d%d", &n, &m);
-	printf("%d\n", josephus(n, m));
+	last = josephus(n-1, m) + 2;
+	printf("%d\n", last);
 
 	return 0;
 }
