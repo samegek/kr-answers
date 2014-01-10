@@ -6,12 +6,15 @@ int josephus(int n, int m);
 int main()
 {
 	int n, m;
-	int last;
 
-	scanf("%d%d", &n, &m);
-	last = josephus(n-1, m) + 2;
-	printf("%d\n", last);
-
+	scanf("%d", &n);
+	while (n != 0){
+		m = 1;
+		while ((josephus(n-1, m) + 2) != 2)
+			m++;
+		printf("%d\n", m);
+		scanf("%d", &n);
+	}
 	return 0;
 }
 
@@ -25,11 +28,8 @@ int josephus(int n, int m)
 			return 0;
 	}
 	else if (n > 2){
-		int k = m % n - 1;
-		return ((josephus(n - 1, m) + k) % n);
+		int k = (m - 1) % n;
+		return ((josephus(n - 1, m) + k + 1) % n);
 	}
-	else{
-		return -1;
-	}	
 }
 
